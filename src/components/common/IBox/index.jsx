@@ -1,7 +1,6 @@
 import { forwardRef } from "react";
-import PropTypes from "prop-types";
 import BoxRoot from "./BoxRoot";
-const SoftBox = forwardRef(
+const IBox = forwardRef(
   (
     { variant, bgColor, color, opacity, borderRadius, shadow, ...rest },
     ref
@@ -14,8 +13,7 @@ const SoftBox = forwardRef(
   )
 );
 
-// Setting default values for the props of SoftBox
-SoftBox.defaultProps = {
+IBox.defaultProps = {
   variant: "contained",
   bgColor: "transparent",
   color: "dark",
@@ -24,14 +22,6 @@ SoftBox.defaultProps = {
   shadow: "none",
 };
 
-// Typechecking props for the SoftBox
-SoftBox.propTypes = {
-  variant: PropTypes.oneOf(["contained", "gradient"]),
-  bgColor: PropTypes.string,
-  color: PropTypes.string,
-  opacity: PropTypes.number,
-  borderRadius: PropTypes.string,
-  shadow: PropTypes.string,
-};
-SoftBox.displayName = "SoftBox";
-export default SoftBox;
+IBox.displayName = "IBox";
+
+export default IBox;

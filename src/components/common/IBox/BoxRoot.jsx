@@ -74,21 +74,18 @@ const BoxRoot = styled(Box)(({ theme, ownerState }) => {
     backgroundValue = bgColor;
   }
 
-  // color value
   let colorValue = color;
 
   if (validColors.find((el) => el === color)) {
     colorValue = palette[color] ? palette[color].main : greyColors[color];
   }
 
-  // borderRadius value
   let borderRadiusValue = borderRadius;
 
   if (validBorderRadius.find((el) => el === borderRadius)) {
     borderRadiusValue = radius[borderRadius];
   }
 
-  // boxShadow value
   let boxShadowValue = boxShadows;
 
   if (validBoxShadows.find((el) => el === shadow)) {

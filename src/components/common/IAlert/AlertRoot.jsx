@@ -10,12 +10,10 @@ const AlertRoot = styled(Box)(({ theme, ownerState }) => {
   const { borderWidth, borderRadius } = borders;
   const { pxToRem, linearGradient } = functions;
 
-  // backgroundImage value
   const backgroundImageValue = alertColors[color]
     ? linearGradient(alertColors[color].main, alertColors[color].state)
     : linearGradient(alertColors.info.main, alertColors.info.state);
 
-  // border value
   const borderValue = alertColors[color]
     ? `${borderWidth[1]} solid ${alertColors[color].border}`
     : `${borderWidth[1]} solid ${alertColors.info.border}`;
@@ -36,4 +34,5 @@ const AlertRoot = styled(Box)(({ theme, ownerState }) => {
     fontWeight: fontWeightMedium,
   };
 });
+
 export default AlertRoot;

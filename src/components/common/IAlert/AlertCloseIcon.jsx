@@ -26,4 +26,5 @@ const AlertCloseIcon = styled("span")(({ theme }) => {
     },
   };
 });
+
 export default AlertCloseIcon;
