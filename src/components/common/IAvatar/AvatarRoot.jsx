@@ -1,65 +1,70 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
-import Fade from "@mui/material/Fade";
-import SoftBox from "components/SoftBox";
-import SoftAlertRoot from "components/SoftAlert/SoftAlertRoot";
-import SoftAlertCloseIcon from "components/SoftAlert/SoftAlertCloseIcon";
+import Avatar from "@mui/material/Avatar";
+import { styled } from "@mui/material/styles";
 
-function SoftAlert({ color, dismissible, children, ...rest }) {
-  const [alertStatus, setAlertStatus] = useState("mount");
+export default styled(Avatar)(({ theme, ownerState }) => {
+  const { palette, functions, typography, boxShadows } = theme;
+  const { shadow, bgColor, size } = ownerState;
 
-  const handleAlertStatus = () => setAlertStatus("fadeOut");
+  const { gradients, transparent } = palette;
+  const { pxToRem, linearGradient } = functions;
+  const { size: fontSize, fontWeightBold } = typography;
 
-  // The base template for the alert
-  const alertTemplate = (mount = true) => (
-    <Fade in={mount} timeout={300}>
-      <SoftAlertRoot ownerState={{ color }} {...rest}>
-        <SoftBox display="flex" alignItems="center" color="white">
-          {children}
-        </SoftBox>
-        {dismissible ? (
-          <SoftAlertCloseIcon onClick={mount ? handleAlertStatus : null}>
-            &times;
-          </SoftAlertCloseIcon>
-        ) : null}
-      </SoftAlertRoot>
-    </Fade>
-  );
+  const backgroundValue =
+    bgColor === "transparent"
+      ? transparent.main
+      : linearGradient(gradients[bgColor].main, gradients[bgColor].state);
 
-  switch (true) {
-    case alertStatus === "mount":
-      return alertTemplate();
-    case alertStatus === "fadeOut":
-      setTimeout(() => setAlertStatus("unmount"), 400);
-      return alertTemplate(false);
-    default:
-      alertTemplate();
+  let sizeValue;
+
+  switch (size) {
+    case "xs":
+      sizeValue = {
+        width: pxToRem(24),
+        height: pxToRem(24),
+        fontSize: fontSize.xs,
+      };
       break;
+    case "sm":
+      sizeValue = {
+        width: pxToRem(36),
+        height: pxToRem(36),
+        fontSize: fontSize.sm,
+      };
+      break;
+    case "lg":
+      sizeValue = {
+        width: pxToRem(58),
+        height: pxToRem(58),
+        fontSize: fontSize.sm,
+      };
+      break;
+    case "xl":
+      sizeValue = {
+        width: pxToRem(74),
+        height: pxToRem(74),
+        fontSize: fontSize.md,
+      };
+      break;
+    case "xxl":
+      sizeValue = {
+        width: pxToRem(110),
+        height: pxToRem(110),
+        fontSize: fontSize.md,
+      };
+      break;
+    default: {
+      sizeValue = {
+        width: pxToRem(48),
+        height: pxToRem(48),
+        fontSize: fontSize.md,
+      };
+    }
   }
 
-  return null;
-}
-
-// Setting default values for the props of SoftAlert
-SoftAlert.defaultProps = {
-  color: "info",
-  dismissible: false,
-};
-
-// Typechecking props of the SoftAlert
-SoftAlert.propTypes = {
-  color: PropTypes.oneOf([
-    "primary",
-    "secondary",
-    "info",
-    "success",
-    "warning",
-    "error",
-    "light",
-    "dark",
-  ]),
-  dismissible: PropTypes.bool,
-  children: PropTypes.node.isRequired,
-};
-
-export default SoftAlert;
+  return {
+    background: backgroundValue,
+    fontWeight: fontWeightBold,
+    boxShadow: boxShadows[shadow],
+    ...sizeValue,
+  };
+});
